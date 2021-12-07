@@ -1,70 +1,106 @@
-# Getting Started with Create React App
+# User Story : 
+* Register : user can not use the app without Sign Up 
+* login : User can not show his list if he doesn't login 
+* get : tasks will display as a list when user login in the app . 
+* edit : user can modify his tasks 
+* Post : user can add a new tasks 
+* Delete : user can remove his tasks
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# components : 
+* Register 
+* Login 
+* List
+ 
 
-In the project directory, you can run:
+# Client / Fronend : 
+## React Router Routs : 
+| Path     | Component      | 
+| :---     |      ---:      |  
+| `/`      |  Login         | 
+| `signup` |  Register      | 
+| `list`   |  List          | 
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Server / Backend
+* Auth Service :
+- auth.getTodos(user)
+- auth.editTask(user)
+- auth.addTask(user)
+- auth.removeTask(user)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Models : 
 
-### `npm run build`
+* Roles Model : 
+```
+const rolesSchema = new mongoose.Schema({
+  role: {
+    type: String,
+    required: true,
+  },
+  permissions: {
+    type: Array,
+    required: true,
+  },
+});
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Users Model : 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+const usersSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  passowrd: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Role",
+    default: "61a6013d6215cdf69f4f70bf",
+  },
+});
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Tasks Model : 
+```
+const tasksSchema = new mongoose.Schema({
+  task: {
+    type: String,
+    required: true,
+  },
+  isCompleted: {
+    type: Boolean,
+    default: false,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+});
+```
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Backend Routes : 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| HTTP Method   | URL            | Success status | Error status |
+| :---          |     :---:      |     :---:      |    ---:      |
+| GET           |     /todos     |      200       |     404      |
+| POST          |      /todo     |      201       |     400      |
+| PUT           |    /edit/:id   |      200       |     404      |
+| DELETE        |   /remove/:id  |      200       |     400      |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Links 
+* [MongoDB Doc](https://docs.mongodb.com/manual/installation/)
+* [Express Doc](https://expressjs.com/en/starter/installing.html)
+* [Postman Doc](https://www.postman.com/downloads/)
+* [React Doc](https://reactjs.org)
+* [Redux Doc](https://redux.js.org)
