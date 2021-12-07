@@ -1,18 +1,20 @@
 import React, {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../../reducers/users";
+import { signIn } from "../../reducers/Login";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+
+
+const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [passowrd, setPassword] = useState("");
 
   const state = useSelector((state) => {
     return {
-      token: state.Users.token,
+      token: state.Login.token,
     };
   });
 
@@ -39,7 +41,7 @@ function Login() {
   };
 
   return (
-    <div className="App">
+    <div className="wrapper">
       {!state.token ? (
         <div className="form">
           <h1>Login</h1>
@@ -59,9 +61,19 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <input type="submit" value="login" onClick={login} />
+
+          <h3>
+            {" "}
+            You Don't Have an Account ? <Link to="/signup">
+              SignUp Here{" "}
+            </Link>{" "}
+          </h3>
         </div>
       ) : (
-        <h1> You Already Logged in </h1>
+        <h1>
+          {" "}
+          You Already Logged in , Go To <Link to="/list">Your List </Link>{" "}
+        </h1>
       )}
     </div>
   );
