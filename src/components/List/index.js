@@ -52,7 +52,27 @@ const addTask = async ()=>{
   }
 }
 
+// const edit = async(id)=> {
+// try{
+//   const res = await axios.put(`${process.env.REACT_APP_BASE_URL}/edit/${id}`,{
+//     task : 
+//   })
+// }
+// }
 
+
+const remove = async(id)=> {
+  try{
+    const res = await axios.put(`${process.env.REACT_APP_BASE_URL}/todo/${id}`,{
+      headers:{
+         Authorization: `Bearer ${token}`
+      }
+    });
+    dispatch(removeTask(res.data));
+  }catch(error){
+    console.log(error);
+  }
+}
 
 
 
