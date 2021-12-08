@@ -10,6 +10,8 @@ const List = () => {
 
  const dispatch = useDispatch();
  const [task , setTask] = useState("")
+//  const [editor , setEditor] = useState(false);
+
 
 
  const state = useSelector((state) => {
@@ -52,13 +54,19 @@ const addTask = async ()=>{
   }
 }
 
-// const edit = async(id)=> {
-// try{
-//   const res = await axios.put(`${process.env.REACT_APP_BASE_URL}/edit/${id}`,{
-//     task : 
-//   })
-// }
-// }
+const edit = async(id)=> {
+try{
+  const res = await axios.put(`${process.env.REACT_APP_BASE_URL}/edit/${id}`,{
+    task 
+  },{
+    headers: {
+        Authorization: `Bearer ${token}`
+      });
+       dispatch(editTask(res.data))
+}catch(error){
+    console.log(error);
+  }
+}
 
 
 const remove = async(id)=> {
@@ -83,6 +91,8 @@ const remove = async(id)=> {
     <>
       <div>
         {!state.token ? (
+          
+              
           <div>
           <h2>
             {" "}
@@ -105,6 +115,7 @@ const remove = async(id)=> {
             {state.list.map((task)=>(
               <div className="item" key={task._id}>
             <li> {task.task}</li>
+        
             <button onClick={()=> edit(task._id)}>Edit</button>
             <button onClick={()=> remove(task._id)}>Remove</button>
             </div>
