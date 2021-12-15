@@ -16,10 +16,10 @@ const SignUp = () => {
 
   const signUp = async()=>{
 try {
-  await axios.post(`${process.env.REACT_APP_BASE_URL}/register`,{
+  await axios.post(`${process.env.REACT_APP_BASE_URL}/register`, {
     email,
-    passowrd
-  })
+    passowrd,
+  });
   navigate("/");
 }catch (error){
   console.log(error);

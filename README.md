@@ -31,6 +31,13 @@
 - auth.removeTask(user)
 
 
+# Entity Relationship Diagram (ERD) 
+
+![ERD](./diagrams/erd.png)
+
+
+
+
 # Models : 
 
 * Roles Model : 
